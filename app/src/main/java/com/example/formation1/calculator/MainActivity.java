@@ -25,7 +25,24 @@ public class MainActivity extends AppCompatActivity {
             return asChar;
         }
 
-        private Operations(char asChar) {
+        public static Operations getOperations(char c) {
+            switch (c) {
+                case '+' :
+                    return Operations.PLUS;
+                case '-' :
+                    return Operations.MINUS;
+                case '/' :
+                    return Operations.DIVIDE;
+                case '*' :
+                    return Operations.MULTIPLY;
+                case '=' :
+                    return Operations.EQUALS;
+                default:
+                    return Operations.NONE;
+            }
+        }
+
+        Operations(char asChar) {
             this.asChar = asChar;
         }
     }
@@ -36,24 +53,6 @@ public class MainActivity extends AppCompatActivity {
     private float lastValue;
     private Operations lastOperand;
     boolean textIsToDelete;
-
-    // todo : un peu dommage
-    private Operations getOperation(char c) {
-        switch (c) {
-            case '+' :
-                return Operations.PLUS;
-            case '-' :
-                return Operations.MINUS;
-            case '/' :
-                return Operations.DIVIDE;
-            case '*' :
-                return Operations.MULTIPLY;
-            case '=' :
-                return Operations.EQUALS;
-            default:
-                return Operations.NONE;
-        }
-    }
 
     MainActivity() {
         digits = new Button[11];
@@ -157,7 +156,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void onOperandClicked(Button b) {
-        Operations operand = getOperation(b.getText().toString().charAt(0));
+        Operations operand = Operations.getOperations(b.getText().toString().charAt(0));
         if (operand == Operations.EQUALS) {
             showResult();
         }
