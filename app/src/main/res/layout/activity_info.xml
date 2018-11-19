@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.widget.LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".InfoActivity"
+    android:orientation="vertical"
+    >
+
+    <TextView
+        android:id="@+id/textview"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:text="0"
+        android:layout_margin="10dp"
+        android:textSize="25sp"
+        />
+
+    <Button
+        android:id="@+id/callTheDeveloper"
+        android:layout_height="50dp"
+        android:layout_width="match_parent"
+        android:text="A bug ? Call me !"
+        android:layout_marginBottom="25dp"
+        />
+
+    <Button
+        android:id="@+id/returnToMain"
+        android:layout_height="50dp"
+        android:layout_width="match_parent"
+        android:text="Return"
+        android:layout_marginBottom="25dp"
+        />
+
+    <Button
+        android:id="@+id/sendMail"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:text="Send an email"
+        />
+
+</android.widget.LinearLayout>

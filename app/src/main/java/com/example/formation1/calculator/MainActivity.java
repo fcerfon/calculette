@@ -1,13 +1,13 @@
 package com.example.formation1.calculator;
 
+import android.os.PersistableBundle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-
+import android.content.Intent;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -53,6 +53,11 @@ public class MainActivity extends AppCompatActivity {
     private float lastValue;
     private Operations lastOperand;
     boolean textIsToDelete;
+
+    private final String RESULT_TEXT_KEY = "calcText";
+    private final String RESULT_LAST_VALUE_KEY = "lastValue";
+    private final String RESULT_LAST_OPERAND_KEY = "lastOperand";
+    private final String RESULT_TEXTTODELETE_KEY = "textIsToDelete";
 
     MainActivity() {
         digits = new Button[11];
@@ -134,7 +139,6 @@ public class MainActivity extends AppCompatActivity {
                 lastValue = Float.parseFloat(str);
             }
         } catch (Exception e) {}
-        Log.i("formation", "LastValue is " + lastValue);
     }
 
     private void showResult() {
@@ -174,6 +178,14 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         initialize();
 
+        if (savedInstanceState != null) {
+            text.setText(savedInstanceState.getString(RESULT_TEXT_KEY));
+            lastValue = savedInstanceState.getFloat(RESULT_LAST_VALUE_KEY);
+            char lOperand = savedInstanceState.getChar(RESULT_LAST_OPERAND_KEY);
+            lastOperand = Operations.getOperations(lOperand);
+            textIsToDelete = savedInstanceState.getBoolean(RESULT_TEXTTODELETE_KEY);
+        }
+
         for (Button digit : digits) {
             digit.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -192,5 +204,22 @@ public class MainActivity extends AppCompatActivity {
                 }
             });
         }
+
+        Button infoButton = findViewById(R.id.button_infos);
+        infoButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, InfoActivity.class);
+                startActivity(intent);
+            }
+        });
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putString(RESULT_TEXT_KEY, text.getText().toString());
+        outState.putFloat(RESULT_LAST_VALUE_KEY, lastValue);
+        outState.putChar(RESULT_LAST_OPERAND_KEY, lastOperand.asChar());
+        outState.putBoolean(RESULT_TEXTTODELETE_KEY, textIsToDelete);
     }
 }

@@ -151,5 +151,11 @@
             android:layout_columnWeight="1"
             />
     </GridLayout>
+    <Button
+        android:text="Infos"
+        android:id="@+id/button_infos"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        />
 
 </LinearLayout>
