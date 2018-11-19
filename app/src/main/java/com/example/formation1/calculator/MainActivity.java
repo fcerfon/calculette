@@ -48,7 +48,10 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private Button[] digits;
+    private Button digitPoint;
     private Button[] operands;
+    private Button minusOperand;
+    private Button lastButtonPressed;
     private TextView text;
     private float lastValue;
     private Operations lastOperand;
@@ -75,12 +78,14 @@ public class MainActivity extends AppCompatActivity {
         digits[8] = findViewById(R.id.button_digit8);
         digits[9] = findViewById(R.id.button_digit9);
         digits[10] = findViewById(R.id.button_point);
+        digitPoint = digits[10];
 
         operands[0] = findViewById(R.id.button_plus);
         operands[1] = findViewById(R.id.button_sub);
         operands[2] = findViewById(R.id.button_mult);
         operands[3] = findViewById(R.id.button_divide);
         operands[4] = findViewById(R.id.button_equal);
+        minusOperand = operands[1];
 
         text = findViewById(R.id.textview);
     }
@@ -94,16 +99,6 @@ public class MainActivity extends AppCompatActivity {
         if (result == 0) {
             text.setText("");
         }
-    }
-
-    private void onDigitClicked(Button b) {
-        String digitStr = b.getText().toString();
-        if (textIsToDelete) {
-            text.setText("");
-            textIsToDelete = false;
-        }
-        checkIFAllZeros();
-        text.append(digitStr);
     }
 
     private float makeOperation(float currentNumber) {
@@ -137,9 +132,23 @@ public class MainActivity extends AppCompatActivity {
         Log.i("formation", "LastValue is " + lastValue);
     }
 
-    private void showResult() {
+    private void showResult(int firstDigit) {
         String str = text.getText().toString();
-        try {
+        int firstNumberFirstDigit = 0;
+        int firstNumberLastDigit = 0;
+        int SecondNumberFirstDigit = 0;
+        int SecondNumberLastDigit = 0;
+
+        int i = firstDigit;
+        if (str.charAt(i) == '-') {
+            i++;
+        }
+
+        for (i = i; i < str.length(); i++) {
+            //if ()
+        }
+
+        /*try {
             float currentNumber = Float.parseFloat(str);
             if (lastOperand != Operations.NONE) {
                 lastValue = makeOperation(currentNumber);
@@ -152,18 +161,32 @@ public class MainActivity extends AppCompatActivity {
 
         lastValue = 0;
         lastOperand = Operations.NONE;
-        textIsToDelete = true;
+        textIsToDelete = true;*/
+    }
+
+    private void onDigitClicked(Button b) {
+        String digitStr = b.getText().toString();
+        /*if (textIsToDelete) {
+            text.setText("");
+            textIsToDelete = false;
+        }*/
+        if (!(digitStr.charAt(0) == '.' && lastButtonPressed == digitPoint)) {
+            checkIFAllZeros();
+            text.append(digitStr);
+            lastButtonPressed = b;
+        }
     }
 
     private void onOperandClicked(Button b) {
         Operations operand = Operations.getOperations(b.getText().toString().charAt(0));
         if (operand == Operations.EQUALS) {
-            showResult();
+            showResult(0);
         }
         else {
-            saveCurrentValue();
-            lastOperand = operand;
-            textIsToDelete = true;
+            text.append(b.getText().toString());
+            //saveCurrentValue();
+            //lastOperand = operand;
+            //textIsToDelete = true;
         }
     }
 
