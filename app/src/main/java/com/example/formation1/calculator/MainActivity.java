@@ -59,14 +59,6 @@ public class MainActivity extends AppCompatActivity {
     private final String RESULT_LAST_OPERAND_KEY = "lastOperand";
     private final String RESULT_TEXTTODELETE_KEY = "textIsToDelete";
 
-    MainActivity() {
-        digits = new Button[11];
-        operands = new Button[5];
-        lastValue = 0.0f;
-        textIsToDelete = false;
-        lastOperand = Operations.NONE;
-    }
-
     private void initialize() {
 
         digits[0] = findViewById(R.id.button_digit0);
@@ -174,6 +166,12 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        digits = new Button[11];
+        operands = new Button[5];
+        lastValue = 0.0f;
+        textIsToDelete = false;
+        lastOperand = Operations.NONE;
 
         setContentView(R.layout.activity_main);
         initialize();
